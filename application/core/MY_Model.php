@@ -16,6 +16,23 @@ class MY_Model extends CI_Model {
     }
   }
   
+  public function __get($key)
+  {
+    if ($this->field_exists($key))
+    {
+      return $this->get($key);
+    }
+    return parent::__get($key);
+  }
+  
+  public function __set($key, $value)
+  {
+    if ($this->field_exists($key))
+    {
+      $this->set($key, $value);
+    }
+  }
+  
   public function __call($name, $params)
   {
     /**
@@ -25,19 +42,30 @@ class MY_Model extends CI_Model {
      * find_by_name(...)
      * find_by_any_fieldname(...)
      */
-    if (preg_match('/^find_by_(?<field>.+)/i', $name, $matches))
+    if (preg_match('/^find(_first)?_by_(?<field>.+)/i', $name, $matches))
     {
+      $first = preg_match('/^find_first_by_(?<field>.+)/i', $name);
       $field = $this->unify_field_name($matches['field']);
       if ($this->field_exists($field))
       {
         $this->db->where($field, $params[0]);
-        $query = $this->db->get($this->table_name);
-        $results = array();
-        foreach($query->result() as $row)
+        if ($first)
         {
-          $results[] = self::load($row);
+          $this->db->limit(1);
         }
-        return $results;
+        $query = $this->db->get($this->table_name);
+        if ($first)
+        {
+          return self::load($query->row());
+        } else
+        {
+          $results = array();
+          foreach($query->result() as $row)
+          {
+            $results[] = self::load($row);
+          }
+          return $results;
+        }
       }
     }
   }
