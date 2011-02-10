@@ -9,6 +9,7 @@ class Users extends MY_Controller {
 
 	public function form()
 	{
+	  $this->load->view('users/form', $this->view_data);
 	}
 }
 

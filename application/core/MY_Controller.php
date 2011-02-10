@@ -22,7 +22,7 @@ class MY_Controller extends CI_Controller {
 	 * @param string $key The variable name
 	 * @param mixed $value The variable value
 	 */
-	public function set($key, $value)
+	protected function set($key, $value)
 	{
 	  $this->view_data[$key] = $value;
 	}
@@ -32,7 +32,7 @@ class MY_Controller extends CI_Controller {
 	 * @param string $key The variable name
 	 * @return The variable value
 	 */
-	public function get($key)
+	protected function get($key)
 	{
 	  return !empty($this->view_data[$key]) ? $key : FALSE;
 	}
