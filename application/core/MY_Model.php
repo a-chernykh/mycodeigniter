@@ -41,6 +41,11 @@ class MY_Model extends CI_Model {
      * find_by_id(...)
      * find_by_name(...)
      * find_by_any_fieldname(...)
+     * find_first_by_id(...)
+     * find_first_by_name(...)
+     * find_first_by_any_field(...)
+     *
+     * The function returns one record in case of "first" query
      */
     if (preg_match('/^find(_first)?_by_(?<field>.+)/i', $name, $matches))
     {
