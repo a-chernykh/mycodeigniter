@@ -9,9 +9,8 @@ class Welcome extends CI_Controller {
 
 	function index()
 	{
-	  $user = $this->User_model->find_first_by_username('akhkharu');
-	  $user->username = 'yoyoyo';
-	  var_dump($user->username);
+	  $user = $this->User_model->find(1);
+	  var_dump($user);
 		$this->load->view('welcome_message');
 	}
 }

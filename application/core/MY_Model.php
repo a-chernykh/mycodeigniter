@@ -75,6 +75,14 @@ class MY_Model extends CI_Model {
     }
   }
   
+  /**
+   * Alias for find first by id
+   */
+  public function find($id)
+  {
+    return $this->find_first_by_id($id);
+  }
+  
   public function create($data)
   {
     unset($data[$this->primary_key]);
