@@ -12,7 +12,7 @@ class MY_Controller extends CI_Controller {
 		{
   		if (!$this->get($variable))
   		{
-  		  $this->set($variable, $this->config->item($variable));
+  		  $this->set($variable, $this->config->item('app_' . $variable));
   		}
 		}
 	}
