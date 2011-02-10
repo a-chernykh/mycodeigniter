@@ -9,6 +9,8 @@ class Welcome extends CI_Controller {
 
 	function index()
 	{
+	  $user = $this->User_model->create(array('id' => 456, 'username' => 'akhkharu'));
+	  var_dump($user);
 		$this->load->view('welcome_message');
 	}
 }
