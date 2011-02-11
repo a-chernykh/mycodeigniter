@@ -1,5 +1,3 @@
 *.tmproj
-system/application/config/application.php
-system/application/config/config.php
-system/application/config/database.php
 system/logs/*
+.DS_Store
