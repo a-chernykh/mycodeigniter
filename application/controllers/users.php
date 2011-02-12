@@ -7,9 +7,19 @@ class Users extends MY_Controller {
 		parent::__construct();
 	}
 
-	public function form()
+	public function new_user()
 	{
-	  $this->load->view('users/form', $this->view_data);
+	  $this->load->view('users/new', $this->view_data);
+	}
+	
+	public function create()
+	{
+	  
+	}
+	
+	public function verify($token)
+	{
+	  
 	}
 }
 

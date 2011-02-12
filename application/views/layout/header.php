@@ -5,12 +5,11 @@
   <meta name="description" content="<?php echo $meta_description ?>">
   <meta name="keyword" content="<?php echo $meta_keywords ?>">
   <link rel="stylesheet" href="/css/application.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <script src="/js/jquery-1.5.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/application.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-<div id="header" class="container_12">
-  <div id="" class="grid_3">
-  </div>
-  <div id="" class="grid_9">
-  </div>
+<div id="header">
+  <?php echo anchor('register', 'Register') ?> | <?php echo anchor('signup', 'Signup') ?>
 </div>
-<div id="content" class="container_12">
+<div id="content">

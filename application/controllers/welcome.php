@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends MY_Controller {
 
 	function __construct()
 	{
@@ -9,9 +9,7 @@ class Welcome extends CI_Controller {
 
 	function index()
 	{
-	  $user = $this->User_model->find(1);
-	  var_dump($user);
-		$this->load->view('welcome_message');
+		$this->load->view('index', $this->view_data);
 	}
 }
 
