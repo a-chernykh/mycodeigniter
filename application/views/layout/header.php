@@ -6,6 +6,7 @@
   <meta name="keyword" content="<?php echo $meta_keywords ?>">
   <link rel="stylesheet" href="/css/application.css" type="text/css" media="screen" title="no title" charset="utf-8">
   <script src="/js/jquery-1.5.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="/js/application.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
