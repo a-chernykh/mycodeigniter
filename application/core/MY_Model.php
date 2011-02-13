@@ -66,15 +66,22 @@ class MY_Model extends CI_Model {
           return self::load($query->row());
         } else
         {
-          $results = array();
-          foreach($query->result() as $row)
-          {
-            $results[] = self::load($row);
-          }
-          return $results;
+          return $this->results_to_the_objects($query);
         }
       }
     }
+  }
+  
+  public function where($key, $value = NULL, $escape = TRUE)
+  {
+    $this->db->where($key, $value, $escape);
+    return $this;
+  }
+  
+  public function fetch()
+  {
+    $query = $this->db->get($this->_table_name);
+    return $this->results_to_the_objects($query);
   }
   
   /**
@@ -235,6 +242,21 @@ class MY_Model extends CI_Model {
       $this->_fields = self::$cached_field_names[$this->_table_name];
     }
     return TRUE;
+  }
+  
+  /**
+   * Converts the database results to the appropriate objects
+   * @param $query The query returned by $this->db->get()
+   * @return The array of objects
+   */
+  protected function results_to_the_objects($query)
+  {
+    $results = array();
+    foreach($query->result() as $row)
+    {
+      $results[] = self::load($row);
+    }
+    return $results;
   }
 }
 
