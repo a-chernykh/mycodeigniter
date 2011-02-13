@@ -3,14 +3,16 @@
 class MY_Model extends CI_Model {
   protected static $cached_field_names = array();
   
-  protected $primary_key = 'id';
-  protected $fields = array();
-  protected $values = array();
+  protected $_primary_key = 'id';
+  protected $_created_at_field = 'created_at';
+  protected $_updated_at_field = 'updated_at';
+  protected $_fields = array();
+  protected $_values = array();
   
   public function __construct()
   {
     parent::__construct();
-    if (get_class($this) != 'MY_Model' && !empty($this->table_name))
+    if (get_class($this) != 'MY_Model' && !empty($this->_table_name))
     {
       $this->load_fields();
     }
@@ -58,7 +60,7 @@ class MY_Model extends CI_Model {
         {
           $this->db->limit(1);
         }
-        $query = $this->db->get($this->table_name);
+        $query = $this->db->get($this->_table_name);
         if ($first)
         {
           return self::load($query->row());
@@ -85,7 +87,7 @@ class MY_Model extends CI_Model {
   
   public function create($data)
   {
-    unset($data[$this->primary_key]);
+    unset($data[$this->_primary_key]);
     $model = $this->load($data);
     $model->save();
     return $model;
@@ -99,7 +101,7 @@ class MY_Model extends CI_Model {
   {
     // Prepare the data for DB operation
     $data = array();
-    foreach(array_values($this->fields) as $field)
+    foreach(array_values($this->_fields) as $field)
     {
       if ($value = $this->get($field))
       {
@@ -107,11 +109,15 @@ class MY_Model extends CI_Model {
       }
     }
     
-    if ($this->get($this->primary_key))
+    if ($this->get($this->_primary_key))
     {
+      if (!empty($this->_updated_at_field))
+      {
+        $data[$this->_updated_at_field] = to_mysql_date(time());
+      }
       // Existing record, updating
-      $this->db->where($this->primary_key, $this->get($this->primary_key));
-      if ($this->db->update($this->table_name, $data))
+      $this->db->where($this->_primary_key, $this->get($this->_primary_key));
+      if ($this->db->update($this->_table_name, $data))
       {
         return TRUE;
       } else
@@ -120,10 +126,18 @@ class MY_Model extends CI_Model {
       }
     } else
     {
-      // New record, inserting
-      if ($this->db->insert($this->table_name, $data))
+      if (!empty($this->_created_at_field))
       {
-        $this->set($this->primary_key, $this->db->insert_id());
+        $data[$this->_created_at_field] = to_mysql_date(time());
+      }
+      if (!empty($this->_updated_at_field))
+      {
+        $data[$this->_updated_at_field] = to_mysql_date(time());
+      }
+      // New record, inserting
+      if ($this->db->insert($this->_table_name, $data))
+      {
+        $this->set($this->_primary_key, $this->db->insert_id());
         return TRUE;
       } else
       {
@@ -159,7 +173,7 @@ class MY_Model extends CI_Model {
     $field = $this->unify_field_name($field);
     if ($this->field_exists($field))
     {
-      return ($this->values[$field] = $value);
+      return ($this->_values[$field] = $value);
     }
     return FALSE;
   }
@@ -172,9 +186,9 @@ class MY_Model extends CI_Model {
   public function get($field)
   {
     $field = $this->unify_field_name($field);
-    if ($this->field_exists($field) && !empty($this->values[$field]))
+    if ($this->field_exists($field) && !empty($this->_values[$field]))
     {
-      return $this->values[$field];
+      return $this->_values[$field];
     } else
     {
       return FALSE;
@@ -188,7 +202,7 @@ class MY_Model extends CI_Model {
    */
   protected function field_exists($field)
   {
-    return in_array($field, $this->fields);
+    return in_array($field, $this->_fields);
   }
   
   /**
@@ -207,18 +221,18 @@ class MY_Model extends CI_Model {
    */
   protected function load_fields()
   {
-    if (empty(self::$cached_field_names[$this->table_name]))
+    if (empty(self::$cached_field_names[$this->_table_name]))
     {
-      $this->fields = array();
-      $fields = $this->db->list_fields($this->table_name);
+      $this->_fields = array();
+      $fields = $this->db->list_fields($this->_table_name);
       foreach($fields as $field)
       {
-        $this->fields[] = $field;
+        $this->_fields[] = $field;
       }
-      self::$cached_field_names[$this->table_name] = $this->fields;
+      self::$cached_field_names[$this->_table_name] = $this->_fields;
     } else
     {
-      $this->fields = self::$cached_field_names[$this->table_name];
+      $this->_fields = self::$cached_field_names[$this->_table_name];
     }
     return TRUE;
   }

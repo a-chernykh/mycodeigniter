@@ -9,6 +9,9 @@ class Welcome extends MY_Controller {
 
 	function index()
 	{
+	  $user = $this->User_model->find_first_by_username('me');
+	  $user->username = 'test';
+	  $user->save();
 		$this->load->view('index', $this->view_data);
 	}
 }
