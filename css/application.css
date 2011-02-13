@@ -104,3 +104,13 @@ ul.buttons {
     ul.fields li input {
       float: left;
     }
+
+#error {
+  color: #cc0000;
+  padding: 10px 0;
+}
+
+#notice {
+  color: #009900;
+  padding: 10px 0;
+}

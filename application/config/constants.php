@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+define('SALT', 'my_codeigniter_usersalt');
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

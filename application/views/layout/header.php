@@ -11,6 +11,16 @@
 </head>
 <body>
 <div id="header">
-  <?php echo anchor('register', 'Register') ?> | <?php echo anchor('signup', 'Signup') ?>
+  <?php if (!is_logged_in()) : ?>
+  <?php echo anchor('register', 'Register') ?> | <?php echo anchor('signin', 'Signin') ?>
+  <?php else : ?>
+  <?php echo current_user()->email; ?>
+  <?php endif; ?>
 </div>
+<?php if (!empty($error)) : ?>
+<div id="error"><?php echo $error; ?></div>
+<?php endif; ?>
+<?php if (!empty($notice)) : ?>
+<div id="notice"><?php echo $notice; ?></div>
+<?php endif; ?>
 <div id="content">

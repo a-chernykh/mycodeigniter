@@ -15,6 +15,11 @@ class MY_Controller extends CI_Controller {
   		  $this->set($variable, $this->config->item('app_' . $variable));
   		}
 		}
+		
+		$this->referer = $this->input->server('HTTP_REFERER');
+		
+		$this->set('error', $this->session->flashdata('error'));
+		$this->set('notice', $this->session->flashdata('notice'));
 	}
 	
 	/**
@@ -36,6 +41,7 @@ class MY_Controller extends CI_Controller {
 	{
 	  return !empty($this->view_data[$key]) ? $key : FALSE;
 	}
+	
 }
 
 /* End of file MY_Controller.php */

@@ -39,7 +39,7 @@
 */
 
 $route['register'] = 'users/new_user';
-$route['signup'] = 'users/new_session';
+$route['signin'] = 'users/signin';
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
