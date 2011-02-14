@@ -9,7 +9,6 @@ class User_model extends MY_Model {
     $data['password_hash'] = $this->pass($data['password'], $salt);
     $data['password_salt'] = $salt;
     $data['verification_token'] = md5(random_string('chars', 8));
-    $data['created_at'] = date("Y-m-d H:i:s", time());
     
     unset($data[$this->_primary_key]);
     unset($data['password']);
@@ -36,7 +35,7 @@ class User_model extends MY_Model {
     }
     
     if (!empty($user)) {
-      if ($user->get('password_hash') === $this->pass($password, $this->salt($user->email)))
+      if ($user->password_hash === $this->pass($password, $this->salt($user->email)))
       {
         return $user;
       }

@@ -21,7 +21,6 @@ class Users extends MY_Controller {
     } else {
       $this->session->set_flashdata('error', 'Wrong Username/Email and password combination.');
     }
-    exit;
     redirect();
 	}
 	

@@ -14,7 +14,7 @@ function current_user()
   if ($user_id !== FALSE);
   {
     if (empty($CI->user)) {
-      $CI->user = $CI->User_model->find_by_id($user_id);
+      $CI->user = $CI->User_model->find_first_by_id($user_id);
     }
     return !empty($CI->user) ? $CI->user : FALSE;
   }

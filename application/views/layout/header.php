@@ -14,7 +14,9 @@
   <?php if (!is_logged_in()) : ?>
   <?php echo anchor('register', 'Register') ?> | <?php echo anchor('signin', 'Signin') ?>
   <?php else : ?>
-  <?php echo current_user()->email; ?>
+    <?php if (current_user()) : ?>
+      <?php echo current_user()->email; ?> (<?php echo current_user()->username; ?>)
+    <?php endif; ?>
   <?php endif; ?>
 </div>
 <?php if (!empty($error)) : ?>

@@ -52,6 +52,7 @@ class MY_Model extends CI_Model {
     if (preg_match('/^find(_first)?_by_(?<field>.+)/i', $name, $matches))
     {
       $first = preg_match('/^find_first_by_(?<field>.+)/i', $name);
+      
       $field = $this->unify_field_name($matches['field']);
       if ($this->field_exists($field))
       {
@@ -63,7 +64,7 @@ class MY_Model extends CI_Model {
         $query = $this->db->get($this->_table_name);
         if ($first)
         {
-          return self::load($query->row());
+          return $query->row() ? self::load($query->row()) : FALSE;
         } else
         {
           return $this->results_to_the_objects($query);
