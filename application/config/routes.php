@@ -40,6 +40,7 @@
 
 $route['register'] = 'users/new_user';
 $route['signin'] = 'users/signin';
+$route['signout'] = 'users/signout';
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';

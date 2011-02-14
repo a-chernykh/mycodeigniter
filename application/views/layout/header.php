@@ -15,7 +15,7 @@
   <?php echo anchor('register', 'Register') ?> | <?php echo anchor('signin', 'Signin') ?>
   <?php else : ?>
     <?php if (current_user()) : ?>
-      <?php echo current_user()->email; ?> (<?php echo current_user()->username; ?>)
+      <?php echo current_user()->email; ?> (<?php echo current_user()->username; ?>) <?php echo anchor('signout', 'Signout') ?> 
     <?php endif; ?>
   <?php endif; ?>
 </div>

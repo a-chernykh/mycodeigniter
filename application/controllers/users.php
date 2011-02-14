@@ -21,13 +21,19 @@ class Users extends MY_Controller {
     } else {
       $this->session->set_flashdata('error', 'Wrong Username/Email and password combination.');
     }
-    redirect();
+    redirect('users/profile');
 	}
 	
-	public function logout()
+	public function profile()
+	{
+	  $this->set('user', current_user());
+    $this->load->view('users/profile', $this->view_data);
+	}
+	
+	public function signout()
 	{
     $this->session->unset_userdata('user_id');
-	  redirect($this->referer, 'location');
+	  redirect();
 	}
 	
 	public function new_user()
